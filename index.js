@@ -20,18 +20,14 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3000/api',
+        url: process.env.SWAGGER_SERVER_URL || 'http://localhost:3000/api',
       },
     ],
   },
-  // Rutas donde están los comentarios de Swagger
-  apis: ['./routes/*.js', './controllers/*.js'], 
+  apis: ['./routes/*.js', './controllers/*.js'],
 };
 
-// Generación de especificaciones Swagger
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
-
-// Servir la documentación de Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Rutas
@@ -45,5 +41,6 @@ app.use('/api/movies', movieRoutes);
 app.use('/api/rooms', roomsRoutes);
 app.use('/api/seats', seatsRoutes);
 
+// Puerto
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
