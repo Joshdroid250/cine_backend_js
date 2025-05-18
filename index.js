@@ -38,12 +38,14 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 const authRoutes  = require('./routes/auth');
 const movieRoutes = require('./routes/movie');
 const roomsRoutes = require('./routes/rooms');
-const seatsRoutes = require('./routes/seats');
+const reservations = require('./routes/reservations');
+const funcionRoutes = require('./routes/funcion');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/movies', movieRoutes);
 app.use('/api/rooms', roomsRoutes);
-app.use('/api/seats', seatsRoutes);
+app.use('/api/reservations', reservations); 
+app.use('/api/funcion', funcionRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));

@@ -27,5 +27,6 @@
   "bugs": {
     "url": "https://github.com/Joshdroid250/cine_front-nextjs-/issues"
   },
-  "homepage": "https://github.com/Joshdroid250/cine_front-nextjs-#readme"
+  "homepage": "https://github.com/Joshdroid250/cine_front-nextjs-#readme",
+  "devDependencies": {}
 }
