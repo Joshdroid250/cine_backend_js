@@ -19,18 +19,17 @@ function getFuncionById(id, callback) {
 }
 
 // Crear sala
-function createFuncion(seat, callback) {
-  const { rowseats, columnseats, status, rooms_idrooms} = seat;
-  const sql = `INSERT INTO funcion (fecha, id_novie, hora, salas_idsalas) VALUES (?, ?, ?, ?)`;
-  db.query(sql, [rowseats, columnseats, status, rooms_idrooms], callback);
+function createFuncion(funcion, callback) {
+  const { fecha, id_movie, hora, salas_idsalas} = funcion;
+  const sql = 'INSERT INTO funcion (fecha, id_movie, hora, salas_idsalas) VALUES (?, ?, ?, ?)';
+  db.query(sql, [fecha, id_movie, hora, salas_idsalas], callback);
 }
 
 // Actualizar sala
 function updateFuncion(id, seat, callback) {
-  const { idrooms, row, column } = seat;
-  const sql = `UPDATE funcion
-               SET id_movie = ?, fecha = ?, hora = ?, salas_idsalas = ? WHERE id = ?`;
-  db.query(sql, [idrooms, row, column, id], callback);
+  const {fecha, id_movie, hora, salas_idsalas } = seat;
+  const sql = 'UPDATE funcion SET id_movie = ?, fecha = ?, hora = ?, salas_idsalas = ? WHERE id = ?';
+  db.query(sql, [fecha, id_movie, hora, salas_idsalas], callback);
 }
 
 // Eliminar sala

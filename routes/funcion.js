@@ -2,88 +2,92 @@ const express = require('express');
 const router = express.Router();
 const funcionController = require('../controllers/funcionController');
 
-// Swagger documentation
+/**
+ * @swagger
+ * tags:
+ *   name: Funcion
+ *   description: Gestión de funciones de cine
+ */
+
 /**
  * @swagger
  * /funcion:
  *   get:
- *     summary: Obtiene todas las funciones
- *     description: Devuelve una lista con todas las funciones.
+ *     summary: Obtener todas las funciones
+ *     tags: [Funcion]
  *     responses:
  *       200:
- *         description: Lista de funciones.
+ *         description: Lista de funciones
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   idfuncion:
- *                     type: integer
+ *                 $ref: '#/components/schemas/Funcion'
  */
-
 router.get('/', funcionController.getAll);
 
-// GET /api/funcion/:id
 /**
  * @swagger
  * /funcion/{id}:
  *   get:
- *     summary: Obtiene una función por ID
- *     description: Devuelve los detalles de una función específica.
+ *     summary: Obtener una función por ID
+ *     tags: [Funcion]
  *     parameters:
- *       - name: id
- *         in: path
+ *       - in: path
+ *         name: id
  *         required: true
- *         description: ID de la función a obtener.
  *         schema:
  *           type: integer
  *     responses:
  *       200:
- *         description: Detalles de la función.
+ *         description: Detalles de la función
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Funcion'
+ *       404:
+ *         description: Función no encontrada
+ */
+router.get('/:id', funcionController.getById);
+
+/**
+ * @swagger
+ * /funcion:
+ *   post:
+ *     summary: Crear una nueva función
+ *     tags: [Funcion]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/FuncionInput'
+ *     responses:
+ *       201:
+ *         description: Función creada
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 idfuncion:
+ *                 message:
+ *                   type: string
+ *                 id:
  *                   type: integer
  */
-router.get('/:id', funcionController.getById);
-
-// POST /api/funcion
-/**
- * @swagger
- * /funcion:
- *   post:
- *     summary: Crea una nueva función
- *     description: Crea una nueva función en la base de datos.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               idfuncion:
- *                 type: integer
- */
-
 router.post('/', funcionController.create);
 
-// PUT /api/funcion/:id
 /**
  * @swagger
  * /funcion/{id}:
  *   put:
- *     summary: Actualiza una función existente
- *     description: Actualiza los detalles de una función específica.
+ *     summary: Actualizar una función
+ *     tags: [Funcion]
  *     parameters:
- *       - name: id
- *         in: path
+ *       - in: path
+ *         name: id
  *         required: true
- *         description: ID de la función a actualizar.
  *         schema:
  *           type: integer
  *     requestBody:
@@ -91,32 +95,68 @@ router.post('/', funcionController.create);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               idfuncion:
- *                 type: integer
+ *             $ref: '#/components/schemas/FuncionInput'
+ *     responses:
+ *       200:
+ *         description: Función actualizada
  */
 router.put('/:id', funcionController.update);
 
-// DELETE /api/funcion/:id
 /**
  * @swagger
  * /funcion/{id}:
  *   delete:
- *     summary: Elimina una función
- *     description: Elimina una función específica de la base de datos.
+ *     summary: Eliminar una función
+ *     tags: [Funcion]
  *     parameters:
- *       - name: id
- *         in: path
+ *       - in: path
+ *         name: id
  *         required: true
- *         description: ID de la función a eliminar.
  *         schema:
  *           type: integer
  *     responses:
  *       200:
- *         description: Función eliminada.
+ *         description: Función eliminada
  */
 router.delete('/:id', funcionController.remove);
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Funcion:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         fecha:
+ *           type: string
+ *           format: date
+ *         id_novie:
+ *           type: integer
+ *         hora:
+ *           type: string
+ *           format: time
+ *         salas_idsalas:
+ *           type: integer
+ *     FuncionInput:
+ *       type: object
+ *       properties:
+ *         fecha:
+ *           type: string
+ *           format: date
+ *         id_novie:
+ *           type: integer
+ *         hora:
+ *           type: string
+ *           format: time
+ *         salas_idsalas:
+ *           type: integer
+ *       required:
+ *         - fecha
+ *         - id_novie
+ *         - hora
+ *         - salas_idsalas
+ */
+
 module.exports = router;
-// Compare this snippet from routes/funcion.js:
