@@ -47,5 +47,11 @@ app.use('/api/rooms', roomsRoutes);
 app.use('/api/reservations', reservations); 
 app.use('/api/funcion', funcionRoutes);
 
+ console.log('MYSQLHOST:', process.env.MYSQLHOST);
+  console.log('MYSQLUSER:', process.env.MYSQLUSER);
+  console.log('MYSQLPASSWORD:', process.env.MYSQLPASSWORD);
+  console.log('MYSQLDATABASE:', process.env.MYSQLDATABASE);
+  console.log('MYSQLPORT:', process.env.MYSQLPORT);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
