@@ -41,11 +41,29 @@ const remove = (req, res) => {
   });
 };
 
+
+const getOccupiedSeats = (req, res) => {
+  const { idfuncion } = req.params;
+
+  if (!idfuncion) {
+    return res.status(400).json({ error: 'Se requiere el ID de la función' });
+  }
+
+  reservationModel.getOccupiedSeatsByShow(idfuncion, (err, seats) => {
+    if (err) {
+      console.error('Error al obtener asientos ocupados:', err);
+      return res.status(500).json({ error: 'Error del servidor' });
+    }
+    res.json({ occupiedSeats: seats });
+  });
+};
+
 module.exports = {
   getAll,
   getById,
   create,
   update,
-  remove
+  remove,
+  getOccupiedSeats
 };
 // Compare this snippet from routes/reservations.js:

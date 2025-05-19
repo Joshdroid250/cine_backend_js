@@ -21,9 +21,7 @@ function getFuncionById(id, callback) {
 // Crear sala
 function createFuncion(seat, callback) {
   const { rowseats, columnseats, status, rooms_idrooms} = seat;
-  const sql = `INSERT INTO funcion 
-    (fecha, id_novie, hora, salas_idsalas)
-    VALUES (?, ?, ?, ?)`;
+  const sql = `INSERT INTO funcion (fecha, id_novie, hora, salas_idsalas) VALUES (?, ?, ?, ?)`;
   db.query(sql, [rowseats, columnseats, status, rooms_idrooms], callback);
 }
 
@@ -31,8 +29,7 @@ function createFuncion(seat, callback) {
 function updateFuncion(id, seat, callback) {
   const { idrooms, row, column } = seat;
   const sql = `UPDATE funcion
-               SET id_movie = ?, fecha = ?, hora = ?, salas_idsalas = ?
-               WHERE id = ?`;
+               SET id_movie = ?, fecha = ?, hora = ?, salas_idsalas = ? WHERE id = ?`;
   db.query(sql, [idrooms, row, column, id], callback);
 }
 

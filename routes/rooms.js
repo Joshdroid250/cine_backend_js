@@ -2,119 +2,172 @@ const express = require('express');
 const router = express.Router();
 const roomCtrl = require('../controllers/roomsController');
 
-// GET /api/rooms
+/**
+ * @swagger
+ * tags:
+ *   name: 
+ *   description: Gestión de rooms de cine
+ */
+
 /**
  * @swagger
  * /rooms:
  *   get:
- *     summary: Obtiene todas las salas
- *     description: Devuelve una lista con todas las salas.
+ *     summary: Obtener todas las rooms
+ *     tags: [rooms]
  *     responses:
  *       200:
- *         description: Lista de salas.
+ *         description: Lista de todas las rooms
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   idsalas:
- *                     type: integer
+ *                 $ref: '#/components/schemas/Sala'
  */
 router.get('/', roomCtrl.getAll);
 
-// GET /api/rooms/:id
 /**
  * @swagger
  * /rooms/{id}:
  *   get:
- *     summary: Obtiene una sala por ID
- *     description: Devuelve los detalles de una sala específica.
+ *     summary: Obtener una sala por ID
+ *     tags: [rooms]
  *     parameters:
- *       - name: id
- *         in: path
+ *       - in: path
+ *         name: id
  *         required: true
- *         description: ID de la sala a obtener.
  *         schema:
  *           type: integer
+ *         description: ID de la sala
  *     responses:
  *       200:
- *         description: Detalles de la sala.
+ *         description: Detalles de la sala
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 idsalas:
- *                   type: integer
+ *               $ref: '#/components/schemas/Sala'
+ *       404:
+ *         description: Sala no encontrada
  */
 router.get('/:id', roomCtrl.getById);
 
-// POST /api/rooms
 /**
  * @swagger
  * /rooms:
  *   post:
- *     summary: Crea una nueva sala
- *     description: Crea una nueva sala en la base de datos.
+ *     summary: Crear una nueva sala
+ *     tags: [rooms]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               capacity:
- *                 type: integer
+ *             $ref: '#/components/schemas/SalaInput'
+ *     responses:
+ *       201:
+ *         description: Sala creada exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Sala'
+ *       400:
+ *         description: Datos de entrada inválidos
  */
 router.post('/', roomCtrl.create);
 
-// PUT /api/rooms/:id
 /**
  * @swagger
  * /rooms/{id}:
  *   put:
- *     summary: Actualiza una sala existente
- *     description: Actualiza los detalles de una sala específica.
+ *     summary: Actualizar una sala existente
+ *     tags: [rooms]
  *     parameters:
- *       - name: id
- *         in: path
+ *       - in: path
+ *         name: id
  *         required: true
- *         description: ID de la sala a actualizar.
  *         schema:
  *           type: integer
+ *         description: ID de la sala a actualizar
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *               capacity:
- *                 type: integer
+ *             $ref: '#/components/schemas/SalaInput'
+ *     responses:
+ *       200:
+ *         description: Sala actualizada exitosamente
+ *       404:
+ *         description: Sala no encontrada
  */
 router.put('/:id', roomCtrl.update);
 
-// DELETE /api/rooms/:id
 /**
  * @swagger
  * /rooms/{id}:
  *   delete:
- *     summary: Elimina una sala
- *     description: Elimina una sala específica de la base de datos.
+ *     summary: Eliminar una sala
+ *     tags: [rooms]
  *     parameters:
- *       - name: id
- *         in: path
+ *       - in: path
+ *         name: id
  *         required: true
- *         description: ID de la sala a eliminar.
  *         schema:
  *           type: integer
+ *         description: ID de la sala a eliminar
+ *     responses:
+ *       204:
+ *         description: Sala eliminada exitosamente
+ *       404:
+ *         description: Sala no encontrada
  */
 router.delete('/:id', roomCtrl.remove);
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Sala:
+ *       type: object
+ *       properties:
+ *         tdsales:
+ *           type: integer
+ *           example: 1
+ *           description: ID único de la sala
+ *         nombre:
+ *           type: string
+ *           example: "sala1"
+ *           description: Nombre de la sala
+ *         fila:
+ *           type: integer
+ *           example: 3
+ *           description: Número de filas en la sala
+ *         columnas:
+ *           type: integer
+ *           example: 4
+ *           description: Número de columnas en la sala
+ *       required:
+ *         - nombre
+ *         - fila
+ *         - columnas
+ * 
+ *     SalaInput:
+ *       type: object
+ *       properties:
+ *         nombre:
+ *           type: string
+ *           example: "sala1"
+ *         fila:
+ *           type: integer
+ *           example: 3
+ *         columnas:
+ *           type: integer
+ *           example: 4
+ *       required:
+ *         - nombre
+ *         - fila
+ *         - columnas
+ */
 
 module.exports = router;

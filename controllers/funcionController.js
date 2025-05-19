@@ -2,7 +2,7 @@
 const funcionModel = require('../models/funcionModel');
 
 const getAll = (req, res) => {
-  funcionModel.getAllFunciones((err, funciones) => {
+  funcionModel.getallFuncion((err, funciones) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(funciones);
   });

@@ -1,4 +1,4 @@
 module.exports = {
     secret: 'O1cyOZHxaH',
-    expiresIn: '1h' // puedes cambiarlo
+    expiresIn: '30h' // puedes cambiarlo
   };

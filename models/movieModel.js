@@ -22,18 +22,14 @@ function getMovieById(id, callback) {
 // 3. Crear película
 function createMovie(movie, callback) {
   const { titulo, duration, description, genre, posterImage } = movie;
-  const sql = `INSERT INTO movie 
-    (titulo, duration, description, genre, posterImage)
-    VALUES (?, ?, ?, ?, ?)`;
+  const sql = `INSERT INTO movie (titulo, duration, description, genre, posterImage) VALUES (?, ?, ?, ?, ?)`;
   db.query(sql, [titulo, duration, description, genre, posterImage], callback);
 }
 
 // 4. Actualizar película
 function updateMovie(id, movie, callback) {
   const { titulo, duration, description, genre, posterImage } = movie;
-  const sql = `UPDATE movie
-               SET titulo = ?, duration = ?, description = ?, genre = ?, posterImage = ?
-               WHERE idmovie = ?`;
+  const sql = `UPDATE movie SET titulo = ?, duration = ?, description = ?, genre = ?, posterImage = ?  WHERE idmovie = ?`;
   db.query(sql, [titulo, duration, description, genre, posterImage, id], callback);
 }
 

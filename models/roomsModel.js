@@ -21,22 +21,18 @@ function getRoomById(id, callback) {
 
 // Crear sala
 function createRoom(room, callback) {
-  const { name, capacity } = room;
-  const sql = `INSERT INTO salas 
-    (nombre, fila, columnas)
-    VALUES (?, ?, ?)`;
-  // Asegúrate de que los nombres de las columnas coincidan con tu base de datos
-  db.query(sql, [name, capacity], callback);
+  const { nombre, fila, columnas } = room;
+  const sql = `INSERT INTO salas (nombre, fila, columnas) VALUES (?, ?, ?)`;
+  db.query(sql, [nombre, fila, columnas], callback);
 }
 
 // Actualizar sala
 function updateRoom(id, room, callback) {
-  const { name, capacity } = room;
-  const sql = `UPDATE salas
-               SET nombre = ?, fila = ?, columnas = ?
-               WHERE idsalas = ?`;
-  db.query(sql, [name, capacity, id], callback);
+  const { nombre, fila, columnas } = room;
+  const sql = `UPDATE salas SET nombre = ?, fila = ?, columnas = ? WHERE idsalas = ?`;
+  db.query(sql, [nombre, fila, columnas, id], callback);
 }
+
 
 // Eliminar sala
 function deleteRoom(id, callback) {
