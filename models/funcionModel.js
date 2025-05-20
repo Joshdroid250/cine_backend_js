@@ -29,7 +29,7 @@ function createFuncion(funcion, callback) {
 function updateFuncion(id, seat, callback) {
   const {fecha, id_movie, hora, salas_idsalas } = seat;
   const sql = 'UPDATE funcion SET id_movie = ?, fecha = ?, hora = ?, salas_idsalas = ? WHERE id = ?';
-  db.query(sql, [fecha, id_movie, hora, salas_idsalas], callback);
+  db.query(sql, [id_movie, fecha, hora, salas_idsalas, id], callback);
 }
 
 // Eliminar sala
